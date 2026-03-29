@@ -64,6 +64,7 @@
 
   // フォーム送信時に自動実行される関数
   function onFormSubmit(e) {
+     if (!isEnabled()) return;
     const items = e.response.getItemResponses();
 
     // フォームの全回答をテキストにまとめる
@@ -129,3 +130,8 @@
       Logger.log('JSONパース失敗: ' + e.message);
     }
   }
+
+ //disableappを実行するとon/off切り替え
+  function enableApp()  { PropertiesService.getScriptProperties().setProperty('ENABLED', 'true');  Logger.log('有効にしました'); }
+  function disableApp() { PropertiesService.getScriptProperties().setProperty('ENABLED', 'false'); Logger.log('無効にしました'); }
+  function isEnabled()  { return PropertiesService.getScriptProperties().getProperty('ENABLED') === 'true'; }
